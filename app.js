@@ -36,5 +36,5 @@ app.use((error,req, res, next) => {
 });
 
 mongoose.connect('mongodb+srv://Chetana:chetanamj123@atlascluster.kgkrn95.mongodb.net/poll?retryWrites=true&w=majority')
-.then(()=>{app.listen(3000);console.log("Server is up and connected to MONgoDb")})
+.then(()=>{app.listen( process.env.PORT || 3000);console.log("Server is up and connected to MONgoDb")})
 .catch(err=>{console.log(err)}) 
