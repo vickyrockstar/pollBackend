@@ -7,7 +7,7 @@ const pollRoutes = require('./routes/poll-route');
 const app = express();
 var cors = require('cors')
 app.use(bodyParser.json());
- /* app.use(cors())  */
+  app.use(cors())  
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
