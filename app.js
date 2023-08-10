@@ -7,14 +7,13 @@ const pollRoutes = require('./routes/poll-route');
 const app = express();
 var cors = require('cors')
 app.use(bodyParser.json());
-app.use(cors({
-    origin: 'https://chetana-survey-app.netlify.app',
-    // You can also add other options if needed
-}));
-
+app.use(cors());
+app.options('/api/*', cors());
+app.options('/api/*', (req, res) => {
+    res.status(200).send(); // Respond with a 200 status for preflight requests
+  });
 app.use('/api/user', userRoutes);
 app.use('/api/poll', pollRoutes);
-
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader(
@@ -24,9 +23,6 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE');
     next();
 })
-
-
-
 
 app.use((req, res, next) => {
     const error = new HttpError("could not find this route", 404);
@@ -42,5 +38,5 @@ app.use((error, req, res, next) => {
 });
 
 mongoose.connect('mongodb+srv://Chetana:chetanamj123@atlascluster.kgkrn95.mongodb.net/poll?retryWrites=true&w=majority')
-    .then(() => { app.listen(process.env.PORT); console.log("Server is up and connected to MongoDb") })
+    .then(() => { app.listen(process.env.PORT || 3000); console.log("Server is up and connected to MongoDb") })
     .catch(err => { console.log(err) }) 
