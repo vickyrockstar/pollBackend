@@ -8,10 +8,10 @@ const app = express();
 var cors = require('cors')
 app.use(bodyParser.json());
 app.use(cors());
-app.options('/api/*', cors());
+/* app.options('/api/*', cors());
 app.options('/api/*', (req, res) => {
     res.status(200).send(); // Respond with a 200 status for preflight requests
-  });
+  }); */
 app.use('/api/user', userRoutes);
 app.use('/api/poll', pollRoutes);
 app.use((req, res, next) => {
@@ -26,6 +26,7 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     const error = new HttpError("could not find this route", 404);
+    console.log(error)
     throw error;
 })
 
@@ -38,5 +39,5 @@ app.use((error, req, res, next) => {
 });
 
 mongoose.connect('mongodb+srv://Chetana:chetanamj123@atlascluster.kgkrn95.mongodb.net/poll?retryWrites=true&w=majority')
-    .then(() => { app.listen(process.env.PORT || 3000); console.log("Server is up and connected to MongoDb") })
+    .then(() => { app.listen(process.env.PORT ); console.log("Server is up and connected to MongoDb") })
     .catch(err => { console.log(err) }) 
