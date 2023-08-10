@@ -1,0 +1,7 @@
+{
+    "env": {
+        "DB_USER": "Chetana",
+        "DB_PASSWORD": "chetanamj123",
+        "DB_NAME": "poll"
+    }
+}
